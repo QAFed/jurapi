@@ -3,9 +3,9 @@ import LINKS
 
 
 class ClearDB:
-    end_point = "/clearDB"
-    response = None
+    def __init__(self):
+        self.end_point = "/clearDB"
+        self.response = None
 
     def clear_db(self):
         self.response = requests.post(LINKS.TARGET_HOST+self.end_point)
-        return self.response
