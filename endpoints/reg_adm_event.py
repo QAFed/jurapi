@@ -20,6 +20,8 @@ class RegAdmEvent:
     def assert_response_body(self):
         self.mod_response = self.response.json()
         self.id = self.mod_response.pop('id')
+        if self.payload["extInfo"] == None:
+            self.payload.pop("extInfo")
         diff = DeepDiff(self.payload, self.mod_response, ignore_order=True)
         if diff:
             raise AssertionError(diff)
