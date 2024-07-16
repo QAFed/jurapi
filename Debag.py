@@ -14,7 +14,5 @@
 
 import endpoints.GENERATORS
 
-new_dict = endpoints.GENERATORS.AdminFilterGenerator()
-print(new_dict.get_dict())
-
-
+new_dict = endpoints.GENERATORS.EventGenerator()
+print(new_dict.dict_adm_event())
