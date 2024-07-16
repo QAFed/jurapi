@@ -1,6 +1,6 @@
 
 # from endpoints.reg_adm_event import RegAdmEvent
-
+import endpoints.get_body_adm_filter
 # import T_DATA
 
 # reg_adm_ev = RegAdmEvent()
@@ -12,7 +12,5 @@
 # cdb = ClearDB()
 # cdb.clear_db()
 
-import endpoints.GENERATORS
 
-new_dict = endpoints.GENERATORS.EventGenerator()
-print(new_dict.dict_adm_event())
+new_dict =

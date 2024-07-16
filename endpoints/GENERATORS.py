@@ -13,7 +13,7 @@ class EventGenerator:
         self.adminIds = admin_ids or [random.randint(1, 10) for _ in range(random.randint(1, 10))]
         self.sessionId = session_id or random.choice(["string1", "string2"])
         self.sortBy = sort_by or random.choice(["id", "time", "host", "info", "sessionId"])
-        self.ctime = ctime or random.choice(range(self.eventTimeFrom, self.eventTimeTo))
+        self.ctime = ctime
 
     def get_dict_filter(self):
         return {
@@ -31,7 +31,7 @@ class EventGenerator:
     def get_dict_reg_event(self):
         return {
             "eventTypeId": 0,   # ??? 1-система, 2-администраторы, 3=пользователи ???
-            "ctime": self.ctime,
+            "ctime": self.ctime or random.choice(range(self.eventTimeFrom, self.eventTimeTo)),
             "extInfo": self.info,
             "host": self.ip,
             "adminId": random.choice(self.adminIds),
