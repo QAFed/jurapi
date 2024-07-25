@@ -1,16 +1,7 @@
 
-# from endpoints.reg_adm_event import RegAdmEvent
-import endpoints.get_body_adm_filter
-# import T_DATA
+import endpoints.get_body_adm_filter as GAF
 
-# reg_adm_ev = RegAdmEvent()
-# reg_adm_ev.reg_adm_event(T_DATA.FIRST_ADM_EVENT)
-# reg_adm_ev.assert_response_body()
+load = GAF.GetFiltAdmEvent()
+load.load_true_fiter_events(count_event=2)
+load.get_adm_events()
 
-
-# from endpoints.clear_db import ClearDB
-# cdb = ClearDB()
-# cdb.clear_db()
-
-
-new_dict =

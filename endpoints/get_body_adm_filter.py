@@ -7,40 +7,58 @@ from deepdiff import DeepDiff
 class GetFiltAdmEvent:
     def __init__(self):
         self.end_point = "/journal/admin"  # на тот же адрес как регистрация только post
-        self.page = 0
-        self.page_size = 0
+        self.page = 1
+        self.page_size = 10
         self.response = None
         self.response_json = None
         self.mod_response = None
         self.id = None
         self.payload = None
         self.filtered_list_events = None
+        self.fiter_dody = None
+
 
     def reg_adm_event(self, payload):
-        self.response = requests.post(LINKS.TARGET_HOST+self.end_point, json=payload)
-        self.response_json = self.response.json()
-        self.payload = payload
+        response = requests.put(LINKS.TARGET_HOST+self.end_point, json=payload)
+        response_json = response.json()
+        print("загрузка payload", payload)
+        return response_json
 
-    def load_true_fiter_events(self, count_env, list_env=None):
-        if list_env:
-            fiter_event = GENERATORS.EventGenerator(**list_env)
+    def load_true_fiter_events(self, count_event=1, list_event=None):
+        if list_event:
+            fiter_event = GENERATORS.EventGenerator(**list_event)
         else:
             fiter_event = GENERATORS.EventGenerator()
-        for n in range(1,count_env+1):
-            dict_event = fiter_event.dict_adm_event()
-            self.reg_adm_event(dict_event)
-            nofiter_list_events = []
-            nofiter_list_events.append(dict_event)
-            self.filtered_list_events = sorted(nofiter_list_events, key=lambda x: x[fiter_event.sortBy],reverse=fiter_event.sortOrder=="desc")
 
-    def etalon_page(self):
-        len_list = len(self.filtered_list_events)
-        if len_list%self.page == 0 or len_list//self.page_size != self.page:
-            return self.filtered_list_events[self.page_size*(self.page-1):self.page_size*self.page:]
-        else:
-            return self.filtered_list_events[self.page_size * (self.page - 1):self.page_size * (self.page - 1+len_list%self.page):]
+        nofiter_list_events = []
+        self.fiter_dody = fiter_event.get_dict_filter()
 
+        for n in range(1, count_event+1):
+            dict_adm_body = fiter_event.dict_adm_event()
+            response = self.reg_adm_event(dict_adm_body)
+            mod_dict_event = {k: v for k, v in dict_adm_body.items() if v is not None}
+            mod_dict_event['id'] = response['id']
+            nofiter_list_events.append(mod_dict_event)
 
+        self.filtered_list_events = sorted(nofiter_list_events, key=lambda x: x[fiter_event.sortBy], reverse=fiter_event.sortOrder=="desc")
+        print(self.filtered_list_events)
+
+    # def etalon_page(self):
+    #     len_list = len(self.filtered_list_events)
+    #     if len_list%self.page == 0 or len_list//self.page_size != self.page:
+    #         return self.filtered_list_events[self.page_size*(self.page-1):self.page_size*self.page:]
+    #     else:
+    #         return self.filtered_list_events[self.page_size * (self.page - 1):self.page_size * (self.page - 1+len_list%self.page):]
+
+    def get_adm_events(self, payload=None, page = None, pageSize = None):
+        in_payload = payload or self.fiter_dody
+        in_page = page or self.page
+        in_page_size = pageSize or self.page_size
+        response = requests.post(LINKS.TARGET_HOST + self.end_point, json=in_payload, params= {'page': in_page, 'pageSize': in_page_size})
+        response_json = response.json()
+        print("загрузка фильтра payload", in_payload)
+        print(response_json)
+        return response_json
 
 
 
