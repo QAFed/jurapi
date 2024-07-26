@@ -16,6 +16,7 @@ class GetFiltAdmEvent:
         self.payload = None
         self.filtered_list_events = None
         self.fiter_dody = None
+        self.urez_fiter_dody = None
 
 
     def reg_adm_event(self, payload):
@@ -32,6 +33,7 @@ class GetFiltAdmEvent:
 
         nofiter_list_events = []
         self.fiter_dody = fiter_event.get_dict_filter()
+        self.urez_fiter_dody = fiter_event.urez_adm_filter()
 
         for n in range(1, count_event+1):
             dict_adm_body = fiter_event.dict_adm_event()
