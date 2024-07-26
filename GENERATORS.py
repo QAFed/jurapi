@@ -12,7 +12,7 @@ class EventGenerator:
         self.sortOrder = sort_order or random.choice(["asc", "desc"])
         self.adminIds = admin_ids or [random.randint(1, 10) for _ in range(random.randint(1, 10))]
         self.sessionId = session_id or random.choice(["string1", "string2"])
-        self.sortBy = sort_by or random.choice(["adminId", "ctime", "host", "sessionId"])
+        self.sortBy = sort_by or random.choice(["adminId", "time", "host", "sessionId"])
         self.ctime = ctime
 
     def get_dict_filter(self):
