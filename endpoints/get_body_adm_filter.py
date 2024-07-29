@@ -16,7 +16,7 @@ class GetFiltAdmEvent:
         self.payload = None
         self.filtered_list_events = None
         self.fiter_dody = None
-        self.urez_fiter_dody = None
+        self.response_from_serv_jsn = None
 
 
     def reg_adm_event(self, payload):
@@ -65,18 +65,14 @@ class GetFiltAdmEvent:
         response_json = response.json()
         print("загрузка фильтра payload", in_payload)
         print('ответ сервера по фильтру', response_json)
+        self.response_from_serv_jsn = response_json
         return response_json
 
-
-
-
-
-    # def assert_response_body(self):
-    #     self.mod_response = self.response.json()
-    #     self.id = self.mod_response.pop('id')
-    #     if self.payload["extInfo"] == None:
-    #         self.payload.pop("extInfo")
-    #     diff = DeepDiff(self.payload, self.mod_response, ignore_order=True)
-    #     if diff:
-    #         raise AssertionError(diff)
-    #     assert not diff
+    def assert_response_body(self):
+        etalon_page = self.etalon_page()
+        diff = DeepDiff(self.response_from_serv_jsn, etalon_page, ignore_order=True)
+        if diff:
+            print('Найдены различия!')
+            raise AssertionError(diff)
+        assert not diff
+        print('Сравнение ОК')
