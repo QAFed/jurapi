@@ -70,7 +70,7 @@ class GetFiltAdmEvent:
 
     def assert_response_body(self):
         etalon_page = self.etalon_page()
-        diff = DeepDiff(self.response_from_serv_jsn, etalon_page, ignore_order=True)
+        diff = DeepDiff(etalon_page, self.response_from_serv_jsn, ignore_order=True)
         if diff:
             print('Найдены различия!')
             raise AssertionError(diff)
