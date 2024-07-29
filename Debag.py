@@ -7,5 +7,6 @@ import endpoints.clear_db as CDB
 # clr.clear_db()
 
 load = GAF.GetFiltAdmEvent()
-load.load_true_fiter_events(count_event=2)
+load.load_true_fiter_events(count_event=3)
 load.get_adm_events()
+print(load.etalon_page())

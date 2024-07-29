@@ -7,8 +7,8 @@ from deepdiff import DeepDiff
 class GetFiltAdmEvent:
     def __init__(self):
         self.end_point = "/journal/admin"  # на тот же адрес как регистрация только post
-        self.page = 0
-        self.page_size = 10
+        self.page = 1
+        self.page_size = 2
         self.response = None
         self.response_json = None
         self.mod_response = None
@@ -48,12 +48,14 @@ class GetFiltAdmEvent:
         self.filtered_list_events = sorted(nofiter_list_events, key=lambda x: x[fiter_sort_by], reverse=fiter_event.sortOrder=="desc")
         print("фильтрованный эталонный список", self.filtered_list_events)
 
-    # def etalon_page(self):
-    #     len_list = len(self.filtered_list_events)
-    #     if len_list%self.page == 0 or len_list//self.page_size != self.page:
-    #         return self.filtered_list_events[self.page_size*(self.page-1):self.page_size*self.page:]
-    #     else:
-    #         return self.filtered_list_events[self.page_size * (self.page - 1):self.page_size * (self.page - 1+len_list%self.page):]
+    def etalon_page(self):
+        len_list = len(self.filtered_list_events)
+        num_page = self.page
+        count_on_page = self.page_size
+        if len_list%count_on_page == 0 or len_list//count_on_page != num_page:
+            return self.filtered_list_events[count_on_page*num_page:(count_on_page)*(num_page+1):]
+        else:
+            return self.filtered_list_events[count_on_page*num_page:count_on_page*(num_page + 1)+len_list%count_on_page:]
 
     def get_adm_events(self, payload=None, page = None, pageSize = None):
         in_payload = payload or self.fiter_dody
