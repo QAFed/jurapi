@@ -33,7 +33,7 @@ class GetFiltAdmEvent:
 
         nofiter_list_events = []
         self.fiter_dody = fiter_event.get_dict_filter()
-        self.urez_fiter_dody = fiter_event.urez_adm_filter()
+
 
         for n in range(1, count_event+1):
             dict_adm_body = fiter_event.dict_adm_event()
@@ -41,9 +41,12 @@ class GetFiltAdmEvent:
             mod_dict_event = {k: v for k, v in dict_adm_body.items() if v is not None}
             mod_dict_event['id'] = response['id']
             nofiter_list_events.append(mod_dict_event)
-
-        self.filtered_list_events = sorted(nofiter_list_events, key=lambda x: x[fiter_event.sortBy], reverse=fiter_event.sortOrder=="desc")
-        print(self.filtered_list_events)
+            if fiter_event.sortBy == 'time':
+                fiter_sort_by = 'ctime'
+            else:
+                fiter_sort_by = fiter_event.sortBy
+        self.filtered_list_events = sorted(nofiter_list_events, key=lambda x: x[fiter_sort_by], reverse=fiter_event.sortOrder=="desc")
+        print("фильтрованный эталонный список", self.filtered_list_events)
 
     # def etalon_page(self):
     #     len_list = len(self.filtered_list_events)
@@ -59,7 +62,7 @@ class GetFiltAdmEvent:
         response = requests.post(LINKS.TARGET_HOST + self.end_point, json=in_payload, params= {'page': in_page, 'pageSize': in_page_size})
         response_json = response.json()
         print("загрузка фильтра payload", in_payload)
-        print(response_json)
+        print('ответ сервера по фильтру', response_json)
         return response_json
 
 

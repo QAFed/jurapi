@@ -43,11 +43,7 @@ class EventGenerator:
         dict_evol["eventTypeId"] = 1
         return dict_evol
 
-    def urez_adm_filter(self):
-        mod_filter = self.get_dict_filter()
-        mod_filter.pop('ip')
-        mod_filter.pop('adminIds')
-        return mod_filter
+
 
 
 
