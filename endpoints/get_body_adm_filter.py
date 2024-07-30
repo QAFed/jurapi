@@ -23,7 +23,7 @@ class GetFiltAdmEvent:
     def reg_adm_event(self, payload):
         response = requests.put(LINKS.TARGET_HOST+self.end_point, json=payload)
         response_json = response.json()
-        print("загрузка payload", payload)
+        # print("загрузка payload", payload)
         return response_json
 
     def load_true_fiter_events(self, count_event=1, list_event=None):
@@ -41,6 +41,7 @@ class GetFiltAdmEvent:
                 dict_adm_body = fiter_event.dict_adm_event()
                 response = self.reg_adm_event(dict_adm_body)
                 mod_dict_event = {k: v for k, v in dict_adm_body.items() if v is not None}
+                # mod_dict_event = dict_adm_body # для поломки теста раскоментить и закоментить строчку выше
                 mod_dict_event['id'] = response['id']
                 nofiter_list_events.append(mod_dict_event)
                 if fiter_event.sortBy == 'time':
@@ -48,7 +49,7 @@ class GetFiltAdmEvent:
                 else:
                     fiter_sort_by = fiter_event.sortBy
             self.filtered_list_events = sorted(nofiter_list_events, key=lambda x: x[fiter_sort_by], reverse=fiter_event.sortOrder=="desc")
-            print("фильтрованный эталонный список", self.filtered_list_events)
+            # print("фильтрованный эталонный список", self.filtered_list_events)
 
     def etalon_page(self):
         len_list = len(self.filtered_list_events)
@@ -66,8 +67,8 @@ class GetFiltAdmEvent:
             in_page_size = pageSize or self.page_size
             response = requests.post(LINKS.TARGET_HOST + self.end_point, json=in_payload, params= {'page': in_page, 'pageSize': in_page_size})
             response_json = response.json()
-            print("загрузка фильтра payload", in_payload)
-            print('ответ сервера по фильтру', response_json)
+            # print("загрузка фильтра payload", in_payload)
+            # print('ответ сервера по фильтру', response_json)
             self.response_from_serv_jsn = response_json
             return response_json
 
@@ -76,7 +77,7 @@ class GetFiltAdmEvent:
             etalon_page = self.etalon_page()
             diff = DeepDiff(etalon_page, self.response_from_serv_jsn, ignore_order=True)
             if diff:
-                print('Найдены различия!')
+                # print('Найдены различия!')
                 raise AssertionError(diff)
             assert not diff
-            print('Сравнение ОК')
+            # print('Сравнение ОК')
