@@ -7,7 +7,7 @@ from deepdiff import DeepDiff
 class GetFiltAdmEvent:
     def __init__(self):
         self.end_point = "/journal/admin"  # на тот же адрес как регистрация только post
-        self.page = 1
+        self.page = 0
         self.page_size = 2
         self.response = None
         self.response_json = None
