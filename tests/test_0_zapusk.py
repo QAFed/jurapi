@@ -1,4 +1,5 @@
 from endpoints.get_body_adm_filter import GetFiltAdmEvent
+# import allure
 
 def test_zap_get_by_filter():
     ent_for_filter = GetFiltAdmEvent()
