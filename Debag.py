@@ -1,5 +1,5 @@
 
-import endpoints.get_body_adm_filter as GAF
+import endpoints.get_adm_event_by_filter as GAF
 import GENERATORS
 import endpoints.clear_db as CDB
 

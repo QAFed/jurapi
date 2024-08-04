@@ -67,8 +67,8 @@ class GetFiltAdmEvent:
             in_page_size = pageSize or self.page_size
             response = requests.post(LINKS.TARGET_HOST + self.end_point, json=in_payload, params= {'page': in_page, 'pageSize': in_page_size})
             response_json = response.json()
-            # print("загрузка фильтра payload", in_payload)
-            # print('ответ сервера по фильтру', response_json)
+            print("загрузка фильтра payload", in_payload)
+            print('ответ сервера по фильтру', response_json)
             self.response_from_serv_jsn = response_json
             return response_json
 
