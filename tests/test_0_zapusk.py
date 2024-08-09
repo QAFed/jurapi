@@ -9,8 +9,8 @@ from endpoints.get_adm_event_by_filter import GetFiltAdmEvent
     {'ip':"121212"},
     {'ip':f"{random.randint(0,10)}"},
     {'ip':"161616"}
-])
-def test_zap_get_by_filter(gen_list):
+], ids=lambda x: str(x))
+def test_adm_event_get_by_filter(gen_list):
     ent_for_filter = GetFiltAdmEvent()
     ent_for_filter.load_true_fiter_events(list_event=gen_list)
     ent_for_filter.get_adm_events()
