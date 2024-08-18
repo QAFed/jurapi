@@ -38,7 +38,7 @@ class GetFiltAdmEvent:
 
 
             for n in range(1, count_event+1):
-                dict_adm_body = fiter_event.dict_adm_event()
+                dict_adm_body = fiter_event.get_dict_reg_event()
                 response = self.reg_adm_event(dict_adm_body)
                 mod_dict_event = {k: v for k, v in dict_adm_body.items() if v is not None}
                 # mod_dict_event = dict_adm_body # для поломки теста раскоментить и закоментить строчку выше

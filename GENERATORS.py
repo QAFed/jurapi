@@ -38,11 +38,6 @@ class EventGenerator:
             "sessionId": self.sessionId
                 }
 
-    def dict_adm_event(self):
-        dict_evol = self.get_dict_reg_event()
-        dict_evol["eventTypeId"] = 1
-        return dict_evol
-
 
 
 
