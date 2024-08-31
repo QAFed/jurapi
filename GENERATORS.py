@@ -30,7 +30,7 @@ class EventGenerator:
 
     def get_dict_reg_event(self):
         return {
-            "eventTypeId": 0,   # ??? 1-система, 2-администраторы, 3=пользователи ???
+            "eventTypeId": self.actionType,   # ??? 1-система, 2-администраторы, 3=пользователи ???
             "ctime": self.ctime or random.choice(range(self.eventTimeFrom, self.eventTimeTo+1)),
             "extInfo": self.info,
             "host": self.ip,

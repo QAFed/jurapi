@@ -3,7 +3,7 @@ import pytest
 from endpoints.get_adm_event_by_filter import GetFiltAdmEvent
 # import allure
 
-# @pytest.mark.usefixtures("pre_clear")
+@pytest.mark.usefixtures("pre_clear")
 @pytest.mark.parametrize('gen_list', [
     {'ip':"121212"},
     {'ip':f"{random.randint(0,10)}"},
